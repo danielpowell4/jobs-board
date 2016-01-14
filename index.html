@@ -149,7 +149,7 @@
           <div id="search-wrapper">
             <h1 class="search-flex-item">SEARCH OUR CATALOG</h1>
             <form id="form-container" class="form-container search-flex-item">
-                <input type="text" id="city" value="" placeholder="Position">
+                <input type="text" id="position-token" value="" placeholder="Position">
                 <button id="submit-btn">Search</button>
             </form>
             <btn class="search-flex-item">VIEW ALL</btn>
@@ -191,6 +191,15 @@
         <script src="https://use.typekit.net/cxb7efi.js"></script>
         <script>try{Typekit.load({ async: true });}catch(e){}</script>
 
+        <script>
+          // vars for elements in the DOM
+
+          var $searchToken = $("#position-token").val();
+          var $positionResults = $("#result-positions");
+
+          $('#form-container').submit(console.log($searchToken));
+          
+        </script>
   </body>
 
 </html>
