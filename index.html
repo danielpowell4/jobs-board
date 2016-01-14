@@ -11,7 +11,16 @@
 
         padding: 0;
         margin: 0;
+        color: #666;
+      }
 
+      h1, h2, h3 {
+        font-family: "alternate-gothic-no-3-d";
+      }
+
+
+      h4, h5, h6, p {
+        font-family:  "proxima-nova-soft";
       }
 
       h1 {
@@ -34,6 +43,8 @@
 
       #hero-text-wrapper {
           max-width: 660px;
+          width: 60%;
+          min-width: 340px;
           height: auto;
           min-height: 240px;
           padding: 8em;
@@ -46,6 +57,13 @@
         min-height: 42px;
         color: #fff;
         background-color: red;
+      }
+
+      @media screen and (max-width: 680px){
+        #hero-text-wrapper {
+            padding: 16vh 2vw;
+            margin: 0 auto;
+        }
       }
 
       #search{
@@ -81,7 +99,7 @@
       }
 
       .position-list{
-        
+
       }
 
       #partners {
@@ -164,6 +182,14 @@
         <footer>
           <p>2016 and other footery things go here</p>
         </footer>
+
+        <!-- jQuery to the rescue -->
+        <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+
+        <!-- TypeKit fonts -->
+        <script src="https://use.typekit.net/cxb7efi.js"></script>
+        <script>try{Typekit.load({ async: true });}catch(e){}</script>
+
   </body>
 
 </html>
