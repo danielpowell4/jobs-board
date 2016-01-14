@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Beta: Employee Owned Jobs Board</title>
+    <meta name="description" content="A jobs board dedicated to helping people locate ownership jobs in the Rocky Mountain corridor" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" >
+
+    <style>
+
+      .flex-container{
+        display: flex;
+        align-content: space-around;
+      }
+
+      #hero {
+          text-align: center;
+          width: 100%;
+          height: auto;
+          min-height: 520px;
+      }
+
+      #hero btn {
+        padding: 4em 2em;
+        min-width: 96px;
+        min-height: 42px;
+        color: #fff;
+        background-color: red;
+      }
+
+    </style>
+  </head>
+
+  <body>
+      <div id="main-wrapper">
+
+        <div id="hero">
+          <h1>FIND NEW OPPORTUNITY. FIND OWNERSHIP</h1>
+          <h4>ESOPS and Cooperatives offer new ladders of opportunity</h4>
+          <btn>LEARN MORE<btn>
+        </div>
+
+        <section id="search">
+          <h1>SEARCH OUR CATALOG</h1>
+          <form id="form-container" class="form-container">
+              <input type="text" id="city" value="" placeholder="Position">
+              <button id="submit-btn">Search</button>
+          </form>
+          <btn>VIEW ALL</btn>
+        </section>
+
+        <section id="results">
+          <h2 id="results-title">Results will appear here after search is complete</h2>
+          <ul id="results-list"></ul>
+        </section>
+
+
+        <section id="partners">
+          <h1>Our Partner Organizations</h1>
+          <div class="flex-container">
+            <img src="/" alt="Parter Logo">
+            <img src="/" alt="Parter Logo">
+            <img src="/" alt="Parter Logo">
+            <img src="/" alt="Parter Logo">
+            <img src="/" alt="Parter Logo">
+            <img src="/" alt="Parter Logo">
+            <img src="/" alt="Parter Logo">
+          </div>
+        </section>
+
+        <footer>
+          <p> © 2016 and other footery things go here</p>
+        </footer>
+      </div>
+  </body>
+
+</html>
