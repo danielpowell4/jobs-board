@@ -7,9 +7,19 @@
 
     <style>
 
-      .flex-container{
-        display: flex;
-        align-content: space-around;
+      html, body {
+
+        padding: 0;
+        margin: 0;
+
+      }
+
+      h1 {
+        text-align: center;
+      }
+
+      .white {
+        background-color: #fff;
       }
 
       #hero {
@@ -18,13 +28,16 @@
           height: auto;
           min-height: 520px;
           background-color: #eee;
+          margin: 0;
+          border-bottom: 1px solid black;
       }
 
       #hero-text-wrapper {
           max-width: 660px;
           height: auto;
           min-height: 240px;
-          margin: 5em auto 0 auto;
+          padding: 8em;
+          margin: 0 auto;
       }
 
       #hero btn {
@@ -35,49 +48,121 @@
         background-color: red;
       }
 
+      #search{
+
+      }
+
+      #search-wrapper {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: center;
+        align-items: baseline;
+      }
+
+      .search-flex-item {
+        margin: 2em;
+      }
+
+
+      #results{
+
+      }
+
+      #results-wrapper{
+        max-width: 880px;
+        width: 80%;
+        margin: 0 auto;
+        text-align: center;
+        border-top: 1px dashed black;
+      }
+
+      #result-positions{
+        padding: 0;
+      }
+
+      .position-list{
+        
+      }
+
+      #partners {
+        border-top: 1px solid black;
+      }
+
+      #partner-flex-container{
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: space-around;
+        align-items: center;
+        max-width: 880px;
+        width: 100%;
+        margin: 0 auto;
+      }
+
+      .partner-logo {
+        margin: 2em;
+        height:
+      }
+
+      footer {
+        border-top: 1px solid black;
+        background-color: #f1f1f1;
+        margin: 1em 0;
+        padding: 2em;
+        text-align: center;
+      }
+
     </style>
   </head>
 
   <body>
 
         <div id="hero">
+
           <div id="hero-text-wrapper">
-            <h1>FIND NEW OPPORTUNITY. FIND OWNERSHIP</h1>
+            <h1>FIND OWNERSHIP: FIND OPPORTUNITY.</h1>
             <h4>ESOPS and Cooperatives offer new ladders of opportunity</h4>
-            <btn>LEARN MORE<btn>
+            <btn>LEARN MORE</btn>
           </div>
+
         </div>
 
-        <section id="search">
-          <h1>SEARCH OUR CATALOG</h1>
-          <form id="form-container" class="form-container">
-              <input type="text" id="city" value="" placeholder="Position">
-              <button id="submit-btn">Search</button>
-          </form>
-          <btn>VIEW ALL</btn>
+        <section id="search" class="white">
+          <div id="search-wrapper">
+            <h1 class="search-flex-item">SEARCH OUR CATALOG</h1>
+            <form id="form-container" class="form-container search-flex-item">
+                <input type="text" id="city" value="" placeholder="Position">
+                <button id="submit-btn">Search</button>
+            </form>
+            <btn class="search-flex-item">VIEW ALL</btn>
+          </div>
         </section>
 
         <section id="results">
-          <h2 id="results-title">Results will appear here after search is complete</h2>
-          <ul id="results-list"></ul>
+          <div id="results-wrapper">
+            <h2 id="results-title">Employee Owned Jobs in the Area</h2>
+            <ul id="result-positions" class="position-list">Enter a job, click search and related positings will be populated here!</ul>
+          </div>
         </section>
+
+        <div id="results">
+          </div>
 
 
         <section id="partners">
           <h1>Our Partner Organizations</h1>
-          <div class="flex-container">
-            <img src="/" alt="Parter Logo">
-            <img src="/" alt="Parter Logo">
-            <img src="/" alt="Parter Logo">
-            <img src="/" alt="Parter Logo">
-            <img src="/" alt="Parter Logo">
-            <img src="/" alt="Parter Logo">
-            <img src="/" alt="Parter Logo">
+          <div id="partner-flex-container">
+            <img class="partner-logo" src="/" alt="Parter Logo">
+            <img class="partner-logo" src="/" alt="Parter Logo">
+            <img class="partner-logo" src="/" alt="Parter Logo">
+            <img class="partner-logo" src="/" alt="Parter Logo">
+            <img class="partner-logo" src="/" alt="Parter Logo">
+            <img class="partner-logo" src="/" alt="Parter Logo">
+            <img class="partner-logo" src="/" alt="Parter Logo">
           </div>
         </section>
 
         <footer>
-          <p> © 2016 and other footery things go here</p>
+          <p>2016 and other footery things go here</p>
         </footer>
   </body>
 
