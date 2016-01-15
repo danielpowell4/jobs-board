@@ -4,6 +4,7 @@
     <title>Beta: Employee Owned Jobs Board</title>
     <meta name="description" content="A jobs board dedicated to helping people locate ownership jobs in the Rocky Mountain corridor" />
     <meta name="viewport" content="width=device-width,initial-scale=1" >
+    <meta charset="UTF-8">
 
     <style>
 
@@ -148,10 +149,12 @@
         <section id="search" class="white">
           <div id="search-wrapper">
             <h1 class="search-flex-item">SEARCH OUR CATALOG</h1>
+
             <form id="form-container" class="form-container search-flex-item">
                 <input type="text" id="position-token" value="" placeholder="Position">
                 <button id="submit-btn">Search</button>
             </form>
+
             <btn class="search-flex-item">VIEW ALL</btn>
           </div>
         </section>
@@ -191,15 +194,9 @@
         <script src="https://use.typekit.net/cxb7efi.js"></script>
         <script>try{Typekit.load({ async: true });}catch(e){}</script>
 
-        <script>
-          // vars for elements in the DOM
+        <!-- Bring in main.js -->
+        <script src="scripts/main.js"></script>
 
-          var $searchToken = $("#position-token").val();
-          var $positionResults = $("#result-positions");
-
-          $('#form-container').submit(console.log($searchToken));
-          
-        </script>
   </body>
 
 </html>
