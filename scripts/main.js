@@ -23,17 +23,34 @@ $('#form-container').submit(loadData);
 var $positionResults = $("#result-positions");
 $positionResults.text(""); // clears the positionResults... built to be called after a search button is pressed
 
+
+
+// set a timeout for indeed api response
+
+  var indeedRequestTimeout = setTimeout(function(){
+  $positionResults.text("failed to get wikipedia resources");
+  },
+  8000);
+
+
+// Prebuilt nameList
 var companySearchList = ["Accent+on+Independence", "Alpine+Banks+of+Colorado+Inc.", "Alpine+Lumber+Company", "AmWest+Control+Inc.", "Aspen+Wine+Guild", "Boecore+Inc", "Bradsby+Group", "C.B.+&+Potts+Restaurants", "CH2M+Hill", "Charles+D.+Jones+Company", "Colorado+Recovery", "Community+Language+Cooperative", "Culture+Counts", "Davey+Tree+Expert+Company", "Denver+Wholesale+Florists", "Design+Works", "Drive+Train+Industries,+Inc.", "Elward+Systems+Corp.", "Excalibur+Associates,+Inc.", "Facility+Logic", "FirstBank+Holding+Company", "Fort+Collins+Food+Cooperative", "General+Air", "GH+Phipps", "GROUND+Engineering+Consultants+Inc.", "Hazen+Research,+Inc.", "Henzel+Phelps+Construction", "IMA+Financial+Group", "Intelligent+Software+Solutions", "Lamp+Rynearson+&+Associates", "Larson+Distributing+Company", "Leevers+Supermarkets+Inc.", "Left+Hand+Brewing", "Lerch+Bates+Consultants", "Les+Schwab+Tires", "LID+Landscapes", "Lundquist+Associates+Inc.", "Mayu+Meditation+Cooperative", "McStain+Enterprises+Inc", "Merrick+&+Co", "Metcalf+Archaeological+Consultants+Inc", "Monroe+&+Newell+Engineers+Inc.", "Muller+Engineering", "MWH+Global", "Namaste+Solar", "Neenan+Archistruction", "New+Belgium+Brewing", "North+Park+Transportation+Company", "Odell+Brewing", "Ohlson+Lavoie+Collaborative", "P&L+Printing", "Payzone+Directional+Services", "PCL+Construction", "Pester+Marketing", "Pipe+Valve+&+Fitting+Company", "Polar+Field+Services", "Power+Zone", "RAM+International+(includes+C.B.+&+Potts)", "Re/Max+of+Cherry+Creek", "Ready+Talk", "RESPEC+Consulting", "RNL+Design", "Rocky+Mountain+Employee+Ownership+Center", "Roth+Distributing", "S.A.+Miro+Inc.", "San+Juan+Construction", "Stailey+Insurance", "Stoneage+Inc.", "STORserver+Inc.", "The+Group+Real+Estate+Co", "Trinidad+Benham+Corporation", "Union+Taxi+Cooperative", "Venoco+Inc.", "Vision+Care+Specialists", "Wheatridge+Pharmacy", "Wright+Water+Engineers", "Yenter+Companies+Inc.", "Zick+Business+Advisors+Inc."];
 
+var companyQueryName;
+var indeedURLTemplate = 'http://api.indeed.com/ads/apisearch?publisher=3980356173222029&as_and=&as_phr=&as_any=&as_not=&as_ttl=&as_cmp=' + companyQueryName + '&jt=all&st=&salary=&radius=25&l=&fromage=any&limit=30&sort=&psf=advsrch&q=company%3A%28' + companyQueryName + '%29&l=denver%2C+co&sort=&radius=&st=&jt=&start=&limit=100&fromage=&filter=&latlong=1&co=us&chnl=&userip=1.2.3.4&useragent=Mozilla/%2F4.0%28Firefox%29&v=2&format=json';
+
+// functioning API request to indeed... could be improved upon
 var indeedURL = 'http://api.indeed.com/ads/apisearch?publisher=3980356173222029&as_and=&as_phr=&as_any=&as_not=&as_ttl=&as_cmp=New+Belgium&jt=all&st=&salary=&radius=25&l=&fromage=any&limit=30&sort=&psf=advsrch&q=company%3A%28New+Belgium%29&l=denver%2C+co&sort=&radius=&st=&jt=&start=&limit=100&fromage=&filter=&latlong=1&co=us&chnl=&userip=1.2.3.4&useragent=Mozilla/%2F4.0%28Firefox%29&v=2&format=json'
 
 
-  // set a timeout for indeed api response
+  // loop through list of prefab company names, send ajax requests to indeed and then append the results to the positionResults container
 
-    var indeedRequestTimeout = setTimeout(function(){
-    $positionResults.text("failed to get wikipedia resources");
-    },
-    8000);
+  for (var i=0; i < companySearchList.length; i++) {
+      companyQueryName = companySearchList[i];
+      //console.log(companyQueryName);
+      var indeedURLTemplate = 'http://api.indeed.com/ads/apisearch?publisher=3980356173222029&as_and=&as_phr=&as_any=&as_not=&as_ttl=&as_cmp=' + companyQueryName + '&jt=all&st=&salary=&radius=25&l=&fromage=any&limit=30&sort=&psf=advsrch&q=company%3A%28' + companyQueryName + '%29&l=denver%2C+co&sort=&radius=&st=&jt=&start=&limit=100&fromage=&filter=&latlong=1&co=us&chnl=&userip=1.2.3.4&useragent=Mozilla/%2F4.0%28Firefox%29&v=2&format=json';
+      console.log(indeedURLTemplate);
+  }
 
 $.ajax({
     url: indeedURL,
@@ -42,8 +59,6 @@ $.ajax({
     success: function( response ) {
 
       var jobList = response.results; // job list is an array of objects from indeed
-
-      //console.log(jobList);
 
 /* --------------------------------------------------------------------
        loop through the results and place them on the job board
