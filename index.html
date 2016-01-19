@@ -88,6 +88,16 @@
         margin: 2em;
       }
 
+      #stats{
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: center;
+        align-items: baseline;
+      }
+
+      .stat-item {
+        margin: 0 2.4em 2em 2.4em;
+      }
 
       #results{
 
@@ -171,6 +181,10 @@
 
             <btn class="search-flex-item">VIEW ALL</btn>
           </div>
+          <div id="stats">
+            <h3 id="companyCounter" class="stat-item">Number of Companies: <span id="companyCount"></span></h3>
+            <h3 id="jobCounter" class="stat-item">Number of Jobs:  <span id="jobCount"></span> </h3>
+          </div>
         </section>
 
         <section id="results">
@@ -211,7 +225,7 @@
 
         <!-- Company List -->
         <script src="scripts/companyList.js"></script>
-        
+
         <!-- TypeKit fonts -->
         <script src="https://use.typekit.net/cxb7efi.js"></script>
         <script>try{Typekit.load({ async: true });}catch(e){}</script>
