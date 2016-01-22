@@ -1,27 +1,399 @@
 
-function loadData() {
+var masterList = [];
 
-    // DOM elements
+function filterData() {
+
+    // get searchToken from DOM
     var $searchToken = $("#position-token").val();
-
-
-
     // Check value from form is coming in well
     console.log($searchToken);
 
-    // clear out old data before new request
+    var $searchTokenArray = $('#position-token').val().split(" "); //splits your keywords at the spaces
+
+    console.log($searchTokenArray);
+
+    // clear position positings
     $positionResults.text("");
 
+    //loop over keywords searching for exact match
+      for(var i = 0; i < $searchTokenArray.length; i++) {
+        searchThroughJson($searchTokenArray, masterList);
+    };
 
-    return false;
+return false;
 };
 
-loadData;
+function searchThroughJson(needle, JSONArray) {
+  console.log('searchThroughJson RAN');
 
-$('#form-container').submit(loadData);
+  for (var i = 0; i < JSONArray.length; i++) {
+
+    if (JSONArray[i].jobtitle == needle) { //check title -- requires exact match
+      extractInfo(JSONArray[i]);
+      pinToBoard();
+      return JSONArray[i]
+    } else if (JSONArray[i].snippet == needle) { // check snippet -- requires exact match
+      extractInfo(JSONArray[i]);
+      pinToBoard();
+      return JSONArray[i]
+    } else if (JSONArray[i].company == needle) { // check company -- requires exact match
+      extractInfo(JSONArray[i]);
+      pinToBoard();
+      return JSONArray[i]
+    } else {
+      console.log('nothing found');
+      }
+
+    }
+
+    };
+
+/**
+  *
+  * clear out old data before new request
+  *  $positionResults.text("");
+  *
+  */
+
+$('#form-container').submit(filterData);
+
+
 
 var $positionResults = $("#result-positions");
 $positionResults.text(""); // clears the positionResults... built to be called after a search button is pressed
+
+var masterList = [];
+
+var jobList = [
+
+                {
+                    "jobtitle" : "Beer Man",
+                    "company" : "New Belgium Brewing Company",
+                    "city" : "Asheville",
+                    "state" : "NC",
+                    "country" : "US",
+                    "formattedLocation" : "Asheville, NC",
+                    "source" : "New Belgium Brewing Company",
+                    "date" : "Tue, 19 Jan 2016 23:45:48 GMT",
+                    "snippet" : "This position is responsible for maintaining all <b>New</b> <b>Belgium</b> Asheville brewery draught systems and provides local market field quality support and expertise....",
+                    "url" : "http://www.indeed.com/viewjob?jk=8bf93cfe8c8dc57b&qd=CNsHRtVFx7G0fNWVXGuFXjTNTZbjmCF_V_e6n_GmSNjBpzqBdk59KDZCc6R7ETJo5_DVNg6b4Du1UMFEjdO2upYk8G2jD9nKCawkoG-kRxJroiIWQbEJZZxqZjJWKrFdNVbuGkvXR_7b87sG_geiaw&indpubnum=3980356173222029&atk=1a9l7de52af7cfkk",
+                    "onmousedown" : "function() { indeed_clk(this, '1427'); }",
+                    "latitude" : 35.5989,
+                    "longitude" : -82.54945,
+                    "jobkey" : "8bf93cfe8c8dc57b",
+                    "sponsored" : false,
+                    "expired" : false,
+                    "indeedApply" : false,
+                    "formattedLocationFull" : "Asheville, NC",
+                    "formattedRelativeTime" : "2 days ago",
+                    "noUniqueUrl" : false
+}
+,
+                {
+                    "jobtitle" : "Field Quality Ranger",
+                    "company" : "New Belgium Brewing Company",
+                    "city" : "Philadelphia",
+                    "state" : "PA",
+                    "country" : "US",
+                    "formattedLocation" : "Philadelphia, PA",
+                    "source" : "New Belgium Brewing Company",
+                    "date" : "Mon, 18 Jan 2016 23:37:25 GMT",
+                    "snippet" : "<b>New</b> <b>Belgium</b> is the industry-leader in post-production quality. Facilitate and assess the <b>New</b> <b>Belgium</b> Quality Measurement Tools:....",
+                    "url" : "http://www.indeed.com/viewjob?jk=ce048321d827d921&qd=CNsHRtVFx7G0fNWVXGuFXjTNTZbjmCF_V_e6n_GmSNjBpzqBdk59KDZCc6R7ETJo5_DVNg6b4Du1UMFEjdO2upYk8G2jD9nKCawkoG-kRxJroiIWQbEJZZxqZjJWKrFdNVbuGkvXR_7b87sG_geiaw&indpubnum=3980356173222029&atk=1a9l7de52af7cfkk",
+                    "onmousedown" : "function() { indeed_clk(this, '1427'); }",
+                    "latitude" : 39.95055,
+                    "longitude" : -75.15934,
+                    "jobkey" : "ce048321d827d921",
+                    "sponsored" : false,
+                    "expired" : false,
+                    "indeedApply" : false,
+                    "formattedLocationFull" : "Philadelphia, PA",
+                    "formattedRelativeTime" : "3 days ago",
+                    "noUniqueUrl" : false
+}
+,
+                {
+                    "jobtitle" : "Beer Ranger",
+                    "company" : "New Belgium Brewing Company",
+                    "city" : "New York",
+                    "state" : "NY",
+                    "country" : "US",
+                    "formattedLocation" : "New York, NY",
+                    "source" : "New Belgium Brewing Company",
+                    "date" : "Fri, 08 Jan 2016 04:48:41 GMT",
+                    "snippet" : "In the application process, you will be asked a question to select the territories to represent <b>New</b> <b>Belgium</b> <b>Brewing</b> in the NY market....",
+                    "url" : "http://www.indeed.com/viewjob?jk=59bc8bc509a5d291&qd=CNsHRtVFx7G0fNWVXGuFXjTNTZbjmCF_V_e6n_GmSNjBpzqBdk59KDZCc6R7ETJo5_DVNg6b4Du1UMFEjdO2upYk8G2jD9nKCawkoG-kRxJroiIWQbEJZZxqZjJWKrFdNVbuGkvXR_7b87sG_geiaw&indpubnum=3980356173222029&atk=1a9l7de52af7cfkk",
+                    "onmousedown" : "function() { indeed_clk(this, '1427'); }",
+                    "latitude" : 40.71154,
+                    "longitude" : -74.00549,
+                    "jobkey" : "59bc8bc509a5d291",
+                    "sponsored" : false,
+                    "expired" : false,
+                    "indeedApply" : false,
+                    "formattedLocationFull" : "New York, NY",
+                    "formattedRelativeTime" : "14 days ago",
+                    "noUniqueUrl" : false
+}
+,
+                {
+                    "jobtitle" : "Beer Ranger",
+                    "company" : "New Belgium Brewing Company",
+                    "city" : "",
+                    "state" : "NY",
+                    "country" : "US",
+                    "formattedLocation" : "New York",
+                    "source" : "New Belgium Brewing Company",
+                    "date" : "Fri, 08 Jan 2016 04:48:47 GMT",
+                    "snippet" : "In the application process, you will be asked a question to select the territories to represent <b>New</b> <b>Belgium</b> <b>Brewing</b> in the upstate NY market....",
+                    "url" : "http://www.indeed.com/viewjob?jk=85d97e21319c9d4a&qd=CNsHRtVFx7G0fNWVXGuFXjTNTZbjmCF_V_e6n_GmSNjBpzqBdk59KDZCc6R7ETJo5_DVNg6b4Du1UMFEjdO2upYk8G2jD9nKCawkoG-kRxJroiIWQbEJZZxqZjJWKrFdNVbuGkvXR_7b87sG_geiaw&indpubnum=3980356173222029&atk=1a9l7de52af7cfkk",
+                    "onmousedown" : "function() { indeed_clk(this, '1427'); }",
+                    "jobkey" : "85d97e21319c9d4a",
+                    "sponsored" : false,
+                    "expired" : false,
+                    "indeedApply" : false,
+                    "formattedLocationFull" : "New York",
+                    "formattedRelativeTime" : "14 days ago",
+                    "noUniqueUrl" : false
+}
+,
+                {
+                    "jobtitle" : "Beer Ranger",
+                    "company" : "New Belgium Brewing Company",
+                    "city" : "Wilmington",
+                    "state" : "DE",
+                    "country" : "US",
+                    "formattedLocation" : "Wilmington, DE",
+                    "source" : "New Belgium Brewing Company",
+                    "date" : "Thu, 07 Jan 2016 16:47:27 GMT",
+                    "snippet" : "This is an account-level sales position focused on growing and managing <b>New</b> <b>Belgium</b> Brewing's business within the retail accounts and distributor partners in...",
+                    "url" : "http://www.indeed.com/viewjob?jk=53e9d888404be80d&qd=CNsHRtVFx7G0fNWVXGuFXjTNTZbjmCF_V_e6n_GmSNjBpzqBdk59KDZCc6R7ETJo5_DVNg6b4Du1UMFEjdO2upYk8G2jD9nKCawkoG-kRxJroiIWQbEJZZxqZjJWKrFdNVbuGkvXR_7b87sG_geiaw&indpubnum=3980356173222029&atk=1a9l7de52af7cfkk",
+                    "onmousedown" : "function() { indeed_clk(this, '1427'); }",
+                    "latitude" : 39.744507,
+                    "longitude" : -75.54395,
+                    "jobkey" : "53e9d888404be80d",
+                    "sponsored" : false,
+                    "expired" : false,
+                    "indeedApply" : false,
+                    "formattedLocationFull" : "Wilmington, DE",
+                    "formattedRelativeTime" : "15 days ago",
+                    "noUniqueUrl" : false
+}
+,
+                {
+                    "jobtitle" : "Lead Packaging Technician",
+                    "company" : "New Belgium Brewing Company",
+                    "city" : "Asheville",
+                    "state" : "NC",
+                    "country" : "US",
+                    "formattedLocation" : "Asheville, NC",
+                    "source" : "New Belgium Brewing Company",
+                    "date" : "Thu, 21 Jan 2016 17:55:40 GMT",
+                    "snippet" : "This position focuses on the departmental objectives and strategic goals, ensuring current and future projects are completed. This position also focuses on",
+                    "url" : "http://www.indeed.com/viewjob?jk=00c91540a3267a11&qd=CNsHRtVFx7G0fNWVXGuFXjTNTZbjmCF_V_e6n_GmSNjBpzqBdk59KDZCc6R7ETJo5_DVNg6b4Du1UMFEjdO2upYk8G2jD9nKCawkoG-kRxJroiIWQbEJZZxqZjJWKrFdNVbuGkvXR_7b87sG_geiaw&indpubnum=3980356173222029&atk=1a9l7de52af7cfkk",
+                    "onmousedown" : "function() { indeed_clk(this, '1427'); }",
+                    "latitude" : 35.5989,
+                    "longitude" : -82.54945,
+                    "jobkey" : "00c91540a3267a11",
+                    "sponsored" : false,
+                    "expired" : false,
+                    "indeedApply" : false,
+                    "formattedLocationFull" : "Asheville, NC",
+                    "formattedRelativeTime" : "23 hours ago",
+                    "noUniqueUrl" : false
+}
+,
+                {
+                    "jobtitle" : "Field Marketing Manager",
+                    "company" : "New Belgium Brewing Company",
+                    "city" : "New York",
+                    "state" : "NY",
+                    "country" : "US",
+                    "formattedLocation" : "New York, NY",
+                    "source" : "New Belgium Brewing Company",
+                    "date" : "Mon, 18 Jan 2016 23:37:21 GMT",
+                    "snippet" : "The successful Field Marketing Manager candidate must reside in the <b>New</b> York City area and will be responsible for <b>New</b> <b>Belgium</b> field marketing activity in <b>New</b>...",
+                    "url" : "http://www.indeed.com/viewjob?jk=573b45bb5df15829&qd=CNsHRtVFx7G0fNWVXGuFXjTNTZbjmCF_V_e6n_GmSNjBpzqBdk59KDZCc6R7ETJo5_DVNg6b4Du1UMFEjdO2upYk8G2jD9nKCawkoG-kRxJroiIWQbEJZZxqZjJWKrFdNVbuGkvXR_7b87sG_geiaw&indpubnum=3980356173222029&atk=1a9l7de52af7cfkk",
+                    "onmousedown" : "function() { indeed_clk(this, '1427'); }",
+                    "latitude" : 40.71154,
+                    "longitude" : -74.00549,
+                    "jobkey" : "573b45bb5df15829",
+                    "sponsored" : false,
+                    "expired" : false,
+                    "indeedApply" : false,
+                    "formattedLocationFull" : "New York, NY",
+                    "formattedRelativeTime" : "3 days ago",
+                    "noUniqueUrl" : false
+}
+,
+                {
+                    "jobtitle" : "Senior Web Developer",
+                    "company" : "New Belgium Brewing Company",
+                    "city" : "Fort Collins",
+                    "state" : "CO",
+                    "country" : "US",
+                    "formattedLocation" : "Fort Collins, CO",
+                    "source" : "New Belgium Brewing Company",
+                    "date" : "Wed, 13 Jan 2016 05:17:29 GMT",
+                    "snippet" : "<b>New</b> Belgium's Web Developers are responsible for designing, building and maintaining digital presence and web and data services for <b>New</b> <b>Belgium</b>....",
+                    "url" : "http://www.indeed.com/viewjob?jk=ef2d9b76943ea7ee&qd=CNsHRtVFx7G0fNWVXGuFXjTNTZbjmCF_V_e6n_GmSNjBpzqBdk59KDZCc6R7ETJo5_DVNg6b4Du1UMFEjdO2upYk8G2jD9nKCawkoG-kRxJroiIWQbEJZZxqZjJWKrFdNVbuGkvXR_7b87sG_geiaw&indpubnum=3980356173222029&atk=1a9l7de52af7cfkk",
+                    "onmousedown" : "function() { indeed_clk(this, '1427'); }",
+                    "latitude" : 40.585163,
+                    "longitude" : -105.08242,
+                    "jobkey" : "ef2d9b76943ea7ee",
+                    "sponsored" : false,
+                    "expired" : false,
+                    "indeedApply" : false,
+                    "formattedLocationFull" : "Fort Collins, CO",
+                    "formattedRelativeTime" : "9 days ago",
+                    "noUniqueUrl" : false
+}
+,
+                {
+                    "jobtitle" : "Packaging Process Engineer",
+                    "company" : "New Belgium Brewing Company",
+                    "city" : "Asheville",
+                    "state" : "NC",
+                    "country" : "US",
+                    "formattedLocation" : "Asheville, NC",
+                    "source" : "New Belgium Brewing Company",
+                    "date" : "Thu, 21 Jan 2016 17:55:39 GMT",
+                    "snippet" : "Develop, implement, and optimize production procedures for <b>new</b> and existing manufacturing processes. This position provides support to production, maintenance,...",
+                    "url" : "http://www.indeed.com/viewjob?jk=8b0c17748b2fa476&qd=CNsHRtVFx7G0fNWVXGuFXjTNTZbjmCF_V_e6n_GmSNjBpzqBdk59KDZCc6R7ETJo5_DVNg6b4Du1UMFEjdO2upYk8G2jD9nKCawkoG-kRxJroiIWQbEJZZxqZjJWKrFdNVbuGkvXR_7b87sG_geiaw&indpubnum=3980356173222029&atk=1a9l7de52af7cfkk",
+                    "onmousedown" : "function() { indeed_clk(this, '1427'); }",
+                    "latitude" : 35.5989,
+                    "longitude" : -82.54945,
+                    "jobkey" : "8b0c17748b2fa476",
+                    "sponsored" : false,
+                    "expired" : false,
+                    "indeedApply" : false,
+                    "formattedLocationFull" : "Asheville, NC",
+                    "formattedRelativeTime" : "23 hours ago",
+                    "noUniqueUrl" : false
+}
+,
+                {
+                    "jobtitle" : "Area Sales Manager",
+                    "company" : "New Belgium Brewing Company",
+                    "city" : "New York",
+                    "state" : "NY",
+                    "country" : "US",
+                    "formattedLocation" : "New York, NY",
+                    "source" : "New Belgium Brewing Company",
+                    "date" : "Wed, 02 Dec 2015 20:57:02 GMT",
+                    "snippet" : "Area Managers run either a single metro market/geography, or multiple metro markets and geographies. This position also focuses on developing Rangers into",
+                    "url" : "http://www.indeed.com/viewjob?jk=87ee6ceaf4c0d950&qd=CNsHRtVFx7G0fNWVXGuFXjTNTZbjmCF_V_e6n_GmSNjBpzqBdk59KDZCc6R7ETJo5_DVNg6b4Du1UMFEjdO2upYk8G2jD9nKCawkoG-kRxJroiIWQbEJZZxqZjJWKrFdNVbuGkvXR_7b87sG_geiaw&indpubnum=3980356173222029&atk=1a9l7de52af7cfkk",
+                    "onmousedown" : "function() { indeed_clk(this, '1427'); }",
+                    "latitude" : 40.71154,
+                    "longitude" : -74.00549,
+                    "jobkey" : "87ee6ceaf4c0d950",
+                    "sponsored" : false,
+                    "expired" : false,
+                    "indeedApply" : false,
+                    "formattedLocationFull" : "New York, NY",
+                    "formattedRelativeTime" : "30+ days ago",
+                    "noUniqueUrl" : false
+}
+,
+                {
+                    "jobtitle" : "Manager",
+                    "company" : "New Belgium Brewing Company",
+                    "city" : "Fort Collins",
+                    "state" : "CO",
+                    "country" : "US",
+                    "formattedLocation" : "Fort Collins, CO",
+                    "source" : "New Belgium Brewing Company",
+                    "date" : "Fri, 20 Nov 2015 20:19:28 GMT",
+                    "snippet" : "Acts as an extension of the Sales team, partnering closely to develop and execute multi-channel, multi-audience programs for <b>New</b> <b>Belgium</b> brands....",
+                    "url" : "http://www.indeed.com/viewjob?jk=fd0e118e510d8088&qd=CNsHRtVFx7G0fNWVXGuFXjTNTZbjmCF_V_e6n_GmSNjBpzqBdk59KDZCc6R7ETJo5_DVNg6b4Du1UMFEjdO2upYk8G2jD9nKCawkoG-kRxJroiIWQbEJZZxqZjJWKrFdNVbuGkvXR_7b87sG_geiaw&indpubnum=3980356173222029&atk=1a9l7de52af7cfkk",
+                    "onmousedown" : "function() { indeed_clk(this, '1427'); }",
+                    "latitude" : 40.585163,
+                    "longitude" : -105.08242,
+                    "jobkey" : "fd0e118e510d8088",
+                    "sponsored" : false,
+                    "expired" : false,
+                    "indeedApply" : false,
+                    "formattedLocationFull" : "Fort Collins, CO",
+                    "formattedRelativeTime" : "30+ days ago",
+                    "noUniqueUrl" : false
+}
+,
+                {
+                    "jobtitle" : "Brewer",
+                    "company" : "New",
+                    "city" : "Asheville",
+                    "state" : "NC",
+                    "country" : "US",
+                    "formattedLocation" : "Asheville, NC",
+                    "source" : "New Belgium Brewing Company",
+                    "date" : "Wed, 07 Oct 2015 17:05:41 GMT",
+                    "snippet" : "Drink",
+                    "url" : "http://www.indeed.com/viewjob?jk=d041d20ed1dc83b8&qd=CNsHRtVFx7G0fNWVXGuFXjTNTZbjmCF_V_e6n_GmSNjBpzqBdk59KDZCc6R7ETJo5_DVNg6b4Du1UMFEjdO2upYk8G2jD9nKCawkoG-kRxJroiIWQbEJZZxqZjJWKrFdNVbuGkvXR_7b87sG_geiaw&indpubnum=3980356173222029&atk=1a9l7de52af7cfkk",
+                    "onmousedown" : "function() { indeed_clk(this, '1427'); }",
+                    "latitude" : 35.5989,
+                    "longitude" : -82.54945,
+                    "jobkey" : "d041d20ed1dc83b8",
+                    "sponsored" : false,
+                    "expired" : false,
+                    "indeedApply" : false,
+                    "formattedLocationFull" : "Asheville, NC",
+                    "formattedRelativeTime" : "30+ days ago",
+                    "noUniqueUrl" : false
+}
+
+    ]; // job list is an array of objects from indeed
+
+var post, postTitle, postCompany, postSnippet, postLocation, postDate, postURL;
+
+function extractInfo(position) {
+  that.post = position;
+  that.postTitle = '<h2>' + post.jobtitle + '</h2>';
+  that.postCompany = '<h4>' + post.company + '</h4>';
+  that.postSnippet = '<p>' + post.snippet + '</p>';
+  that.postLocation = '<p>' + post.formattedLocationFull + '</p>';
+  that.postDate = '<p>' + post.date + '</p>';
+  that.postURL = '<a href="' + post.url + '"> View Posting Here </a>';
+}
+
+function pinToBoard() {
+  $positionResults.append('<div class="positing-item">' + postTitle + postCompany + postSnippet + postLocation + postDate + postURL + '</div>');
+}
+
+function addToMasterList() {
+  masterList.push(that.post);
+}
+
+for (var i = 0; i<jobList.length; i++){
+  var that = this;
+  extractInfo(jobList[i]);
+  addToMasterList();
+  pinToBoard();
+}
+
+/*
+for (var i = 0; i<jobList.length; i++){
+  post = jobList[i];
+  postTitle = '<h2>' + post.jobtitle + '</h2>';
+  postCompany = '<h4>' + post.company + '</h4>';
+  postSnippet = '<p>' + post.snippet + '</p>';
+  postLocation = '<p>' + post.formattedLocationFull + '</p>';
+  postDate = '<p>' + post.date + '</p>';
+  postURL = '<a href="' + post.url + '"> View Posting Here </a>';
+
+  masterList.push(post); // add to masterList
+
+  $positionResults.append('<div class="positing-item">' + postTitle + postCompany + postSnippet + postLocation + postDate + postURL + '</div>');
+  }
+*/
+
+
+
+
+
+
+
+
+
+
 
 /* -----------------------------------------------------------------------------------------------------
  *        Counter "App"
@@ -33,12 +405,20 @@ var $jobCount = $('#jobCount');
 
 
 
+/** ------------------------------------------------------------------------------------------------------
+  *                                Go to indeed and bring back all the jobs
+  * ------------------------------------------------------------------------------------------------------ */
+
+  /** ---- Commented out as filter is being built better to not annoy indeed
+    *          End Comment at the console logging the number of companies queried
+
 // set a timeout for indeed api response
 
   var indeedRequestTimeout = setTimeout(function(){
   $positionResults.text("failed to get wikipedia resources");
   },
   8000);
+
 
 
 // Prebuilt nameList
@@ -74,8 +454,8 @@ var indeedURL = 'http://api.indeed.com/ads/apisearch?publisher=3980356173222029&
 
 
       /* --------------------------------------------------------------------
-             loop through the results and place them on the job board
-         -------------------------------------------------------------------- */
+             loop through the results, push them to masterList and place them on the job board
+         -------------------------------------------------------------------- * / <------------------ GET RID OF THIS SPACE
 
             var post, postTitle, postCompany, postSnippet, postLocation, postDate, postURL;
 
@@ -106,10 +486,10 @@ var indeedURL = 'http://api.indeed.com/ads/apisearch?publisher=3980356173222029&
 
 
 
-  console.log('Numver of Companies Queried: ' + companySearchList.length);
+  //console.log('Numver of Companies Queried: ' + companySearchList.length);
 
 
-
+------------------------------------------------------------------------------------------------------ Dont forget to get rid of the space from above */
 
 
 
