@@ -1,52 +1,77 @@
 
 var masterList = [];
+var currentList = [];
 
 function filterData() {
 
     // get searchToken from DOM
     var $searchToken = $("#position-token").val();
     // Check value from form is coming in well
-    console.log($searchToken);
+    //console.log($searchToken);
 
     var $searchTokenArray = $('#position-token').val().split(" "); //splits your keywords at the spaces
 
-    console.log($searchTokenArray);
+    //console.log($searchTokenArray);
+
+    // empty currentList
+    currentList = [];
+
+    //loop over keywords searching for exact match adding matches to currentList
+      for(var i = 0; i < $searchTokenArray.length; i++) {
+        searchThroughJson($searchTokenArray, jobList);
+    };
 
     // clear position positings
     $positionResults.text("");
+    console.log("cleared board");
 
-    //loop over keywords searching for exact match
-      for(var i = 0; i < $searchTokenArray.length; i++) {
-        searchThroughJson($searchTokenArray, masterList);
-    };
+    // post currentList to the board
+    if (currentList.length != 0) {
+      for (var i = 0; i<currentList.length; i++) {
+        var post = currentList[i];
+        postTitle = '<h2>' + post.jobtitle + '</h2>';
+        postCompany = '<h4>' + post.company + '</h4>';
+        postSnippet = '<p>' + post.snippet + '</p>';
+        postLocation = '<p>' + post.formattedLocationFull + '</p>';
+        postDate = '<p>' + post.date + '</p>';
+        postURL = '<a href="' + post.url + '"> View Posting Here </a>';
+
+        $positionResults.append('<div class="positing-item">' + postTitle + postCompany + postSnippet + postLocation + postDate + postURL + '</div>');
+        }
+      }  else {
+      $positionResults.text("No results to display. Try something else. There's cool job out there for you!");
+    }
 
 return false;
 };
 
+function nameMatch(searchTerm) {
+  return searchTerm.length > 2;
+}
+
 function searchThroughJson(needle, JSONArray) {
-  console.log('searchThroughJson RAN');
+//  console.log('searchThroughJson RAN');
 
   for (var i = 0; i < JSONArray.length; i++) {
-
-    if (JSONArray[i].jobtitle == needle) { //check title -- requires exact match
-      extractInfo(JSONArray[i]);
-      pinToBoard();
-      return JSONArray[i]
-    } else if (JSONArray[i].snippet == needle) { // check snippet -- requires exact match
-      extractInfo(JSONArray[i]);
-      pinToBoard();
-      return JSONArray[i]
-    } else if (JSONArray[i].company == needle) { // check company -- requires exact match
-      extractInfo(JSONArray[i]);
-      pinToBoard();
-      return JSONArray[i]
-    } else {
+  //  console.log("inside of the for loop");
+  //  console.log(JSONArray[i]);
+  // console.log(i+1);
+    if (JSONArray[i].jobtitle.search(needle) != -1) { //check title for match
+      currentList.push(JSONArray[i]);
+    } else if (JSONArray[i].snippet.search(needle) != -1) { // check snippet -- requires exact match
+      currentList.push(JSONArray[i]);
+    } else if (JSONArray[i].company.search(needle) != -1) { // check company -- requires exact match
+      currentList.push(JSONArray[i]);
+    } else if (JSONArray[i].state == needle) { // check state -- requires exact match
+      currentList.push(JSONArray[i]);
+    }  else {
       console.log('nothing found');
       }
 
     }
 
-    };
+
+};
 
 /**
   *
@@ -57,8 +82,6 @@ function searchThroughJson(needle, JSONArray) {
 
 $('#form-container').submit(filterData);
 
-
-
 var $positionResults = $("#result-positions");
 $positionResults.text(""); // clears the positionResults... built to be called after a search button is pressed
 
@@ -67,7 +90,7 @@ var masterList = [];
 var jobList = [
 
                 {
-                    "jobtitle" : "Beer Man",
+                    "jobtitle" : "Steve",
                     "company" : "New Belgium Brewing Company",
                     "city" : "Asheville",
                     "state" : "NC",
@@ -90,7 +113,7 @@ var jobList = [
 }
 ,
                 {
-                    "jobtitle" : "Field Quality Ranger",
+                    "jobtitle" : "Brewer",
                     "company" : "New Belgium Brewing Company",
                     "city" : "Philadelphia",
                     "state" : "PA",
@@ -342,16 +365,70 @@ var jobList = [
 
     ]; // job list is an array of objects from indeed
 
+var currentList = [];
+
 var post, postTitle, postCompany, postSnippet, postLocation, postDate, postURL;
 
 function extractInfo(position) {
-  that.post = position;
+  post = postition;
+  //  var xyz = new Post(); <-- need something like that going on
+  this.prototype.postTitle = '<h2>' + post.jobtitle + '</h2>';
+  this.prototype.postCompany = '<h4>' + post.company + '</h4>';
+  this.prototype.postSnippet = '<p>' + post.snippet + '</p>';
+  this.prototype.postLocation = '<p>' + post.formattedLocationFull + '</p>';
+  this.prototype.postDate = '<p>' + post.date + '</p>';
+  this.prototype.postURL = '<a href="' + post.url + '"> View Posting Here </a>';
+  console.log(this.prototype);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function Post() {
+  this.currentList = [];
+};
+
+//Post.prototype.currentList = [];
+
+Post.prototype.addToCurrentList = function(newPost) {
+  this.currentList.push(newPost);
+};
+
+Post.prototype.clearBoard = function() {
+  $positionResults.text("");
+};
+
+Post.prototype.pinToBoard = function(list) {
+  var length = list.length;
+
+  for (var i=0; i<length; i++) {
+    $positionResults.append('<div class="positing-item">' + list[i].postTitle + list[i].postCompany + list[i].postSnippet + list[i].postLocation + list[i].postDate + list[i].postURL + '</div>')
+  }
+
+};
+
+function extractInfo(position) {
+  post = position;
   that.postTitle = '<h2>' + post.jobtitle + '</h2>';
   that.postCompany = '<h4>' + post.company + '</h4>';
   that.postSnippet = '<p>' + post.snippet + '</p>';
   that.postLocation = '<p>' + post.formattedLocationFull + '</p>';
   that.postDate = '<p>' + post.date + '</p>';
   that.postURL = '<a href="' + post.url + '"> View Posting Here </a>';
+
 }
 
 function pinToBoard() {
@@ -359,14 +436,14 @@ function pinToBoard() {
 }
 
 function addToMasterList() {
-  masterList.push(that.post);
-}
+  masterList.push(that);
+};
 
 for (var i = 0; i<jobList.length; i++){
   var that = this;
   extractInfo(jobList[i]);
   addToMasterList();
-  pinToBoard();
+  pinToBoard(jobList[i]);
 }
 
 /*
