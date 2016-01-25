@@ -51,16 +51,16 @@ function nameMatch(searchTerm) {
 
 function searchThroughJson(needle, JSONArray) {
 //  console.log('searchThroughJson RAN');
-
+  needle = needle.toLowerCase();
   for (var i = 0; i < JSONArray.length; i++) {
   //  console.log("inside of the for loop");
   //  console.log(JSONArray[i]);
   // console.log(i+1);
-    if (JSONArray[i].jobtitle.search(needle) != -1) { //check title for match
+    if (JSONArray[i].jobtitle.toLowerCase().search(needle) != -1) { //check title for match
       currentList.push(JSONArray[i]);
-    } else if (JSONArray[i].snippet.search(needle) != -1) { // check snippet -- requires exact match
+    } else if (JSONArray[i].snippet.toLowerCase().search(needle) != -1) { // check snippet -- requires exact match
       currentList.push(JSONArray[i]);
-    } else if (JSONArray[i].company.search(needle) != -1) { // check company -- requires exact match
+    } else if (JSONArray[i].company.toLowerCase().search(needle) != -1) { // check company -- requires exact match
       currentList.push(JSONArray[i]);
     } else if (JSONArray[i].state == needle) { // check state -- requires exact match
       currentList.push(JSONArray[i]);
@@ -402,7 +402,7 @@ function Post() {
 };
 
 //Post.prototype.currentList = [];
-
+/*
 Post.prototype.addToCurrentList = function(newPost) {
   this.currentList.push(newPost);
 };
@@ -419,7 +419,7 @@ Post.prototype.pinToBoard = function(list) {
   }
 
 };
-
+*/
 function extractInfo(position) {
   post = position;
   that.postTitle = '<h2>' + post.jobtitle + '</h2>';
