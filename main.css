@@ -109,10 +109,17 @@ btn {
   justify-content: space-around;
 }
 
-.positing-item{
+.posting-item{
   width: 30%;
   max-width: 250px;
   padding: 1em;
+}
+
+.keep-trying-posting-item {
+  width: 40%;
+  max-width: 300px;
+  padding: 1em;
+  margin-bottom: 32vh;
 }
 
 #partners {

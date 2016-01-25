@@ -315,10 +315,10 @@ var $jobCount = $('#jobCount');
         postLocation = '<p>' + post.formattedLocationFull + '</p>';
         postDate = '<p>' + post.date + '</p>';
         postURL = '<a href="' + post.url + '"> View Posting Here </a>';
-        $positionResults.append('<div class="positing-item">' + postTitle + postCompany + postSnippet + postLocation + postDate + postURL + '</div>');
+        $positionResults.append('<div class="posting-item">' + postTitle + postCompany + postSnippet + postLocation + postDate + postURL + '</div>');
         }
       }  else {
-      $positionResults.text("No results to display. Try something else. There's cool job out there for you!");
+      $positionResults.append('<div class="keep-trying-posting-item"> <h1>There is cool job out there for you!</h1><h3>No results to display. Try something else.</h3> </div>');
     }
   };
 
@@ -358,7 +358,6 @@ var $jobCount = $('#jobCount');
 
       // loop over keywords searching for exact match adding matches to currentList
         for(var i = 0; i < $searchTokenArray.length; i++) {
-          //console.log($searchTokenArray[i]);
           searchThroughJson($searchTokenArray[i], jobList);  // inclusive way to do it... "any match displays results"
       };
       // go through the list again and clear out things that don't match all search terms
@@ -372,6 +371,7 @@ var $jobCount = $('#jobCount');
 
       // post currentList to the board
       postCurrentList();
+      checkState();
 
   return false;
   };
@@ -424,7 +424,15 @@ var $jobCount = $('#jobCount');
             };
 
           };
-  };
+  }
+
+  function checkState() {
+    var stateSelected = $("#state-selector").val();
+
+      if (stateSelected.length > 0){
+        filterByState(stateSelected, currentList);
+      }
+  }
 
 
 /**-----------------------------------------------------------------------------
@@ -455,6 +463,8 @@ var $jobCount = $('#jobCount');
         clearBoard();
         postCurrentList();
 
+
+
     };
 
     $("#state-selector").change(function() {
@@ -469,10 +479,13 @@ var $jobCount = $('#jobCount');
       if (currentList.lenth > 0) {
       filterByState(stateSelected, currentList);
       } else {
-      filterByState(stateSelected, jobList) // TODO make sure this is updated after indeed comes back
+      filterByState(stateSelected, jobList);
       }
 
-     });
+      // go over and make sure search terms are accounted for
+      filterData();
+
+      });
 
 
 
