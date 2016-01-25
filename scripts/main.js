@@ -304,6 +304,44 @@ var $jobCount = $('#jobCount');
     $positionResults.text("");
   };
 
+  function postCurrentList() {
+    // post currentList to the board
+    if (currentList.length != 0) {
+      for (var i = 0; i<currentList.length; i++) {
+        var post = currentList[i];
+        postTitle = '<h2>' + post.jobtitle + '</h2>';
+        postCompany = '<h4>' + post.company + '</h4>';
+        postSnippet = '<p>' + post.snippet + '</p>';
+        postLocation = '<p>' + post.formattedLocationFull + '</p>';
+        postDate = '<p>' + post.date + '</p>';
+        postURL = '<a href="' + post.url + '"> View Posting Here </a>';
+        $positionResults.append('<div class="positing-item">' + postTitle + postCompany + postSnippet + postLocation + postDate + postURL + '</div>');
+        }
+      }  else {
+      $positionResults.text("No results to display. Try something else. There's cool job out there for you!");
+    }
+  };
+
+/**-----------------------------------------------------------------------------
+  *
+  *      Set the currentList to the jobList and get the fun started
+  *
+  *-----------------------------------------------------------------------------*/
+
+  function initialBoard() {
+      currentList = jobList;
+      clearBoard();
+      postCurrentList();
+    };
+
+    initialBoard();
+
+/**-----------------------------------------------------------------------------
+  *
+  *      Filtering functions based on the search terms in the box
+  *
+  *-----------------------------------------------------------------------------*/
+
   function filterData() {
 
       // get searchToken from DOM
@@ -333,20 +371,7 @@ var $jobCount = $('#jobCount');
         //console.log("cleared board");
 
       // post currentList to the board
-      if (currentList.length != 0) {
-        for (var i = 0; i<currentList.length; i++) {
-          var post = currentList[i];
-          postTitle = '<h2>' + post.jobtitle + '</h2>';
-          postCompany = '<h4>' + post.company + '</h4>';
-          postSnippet = '<p>' + post.snippet + '</p>';
-          postLocation = '<p>' + post.formattedLocationFull + '</p>';
-          postDate = '<p>' + post.date + '</p>';
-          postURL = '<a href="' + post.url + '"> View Posting Here </a>';
-          $positionResults.append('<div class="positing-item">' + postTitle + postCompany + postSnippet + postLocation + postDate + postURL + '</div>');
-          }
-        }  else {
-        $positionResults.text("No results to display. Try something else. There's cool job out there for you!");
-      }
+      postCurrentList();
 
   return false;
   };
@@ -404,38 +429,50 @@ var $jobCount = $('#jobCount');
 
 /**-----------------------------------------------------------------------------
   *
-  * Extract the basics and put the inital list to the board/masterList
+  *         Filter Based on the Selected State
   *
   *-----------------------------------------------------------------------------*/
 
-var post, postTitle, postCompany, postSnippet, postLocation, postDate, postURL;
+    function filterByState(state, jobArray) {
 
-function extractInfo(position) {
-    post = position;
-    that.postTitle = '<h2>' + post.jobtitle + '</h2>';
-    that.postCompany = '<h4>' + post.company + '</h4>';
-    that.postSnippet = '<p>' + post.snippet + '</p>';
-    that.postLocation = '<p>' + post.formattedLocationFull + '</p>';
-    that.postDate = '<p>' + post.date + '</p>';
-    that.postURL = '<a href="' + post.url + '"> View Posting Here </a>';
+      var listLengthStart = jobArray.length;
 
-}
+      var stateList = [];
 
-function pinToBoard() {
-  $positionResults.append('<div class="positing-item">' + postTitle + postCompany + postSnippet + postLocation + postDate + postURL + '</div>');
-}
+      for (var i = 0; i < listLengthStart; i++) {
 
-function addToMasterList() {
-  masterList.push(that);
-};
+        if (jobArray[i].state == state) { // check state -- requires exact match
+            stateList.push(jobArray[i]);
+        }  else {
+            //  console.log('nothing found');
+        }
 
-for (var i = 0; i<jobList.length; i++){
-  var that = this;
-  extractInfo(jobList[i]);
-  addToMasterList();
-  pinToBoard(jobList[i]);
-}
+      };
 
+        currentList = stateList; //update currentList
+
+        // clear position positings and push the new stateList
+        clearBoard();
+        postCurrentList();
+
+    };
+
+    $("#state-selector").change(function() {
+
+      stateSelected = $(this).val(); // grab the state value
+
+      /**
+        *   If there are 'currentList' results filter over those, otherwise
+        *   filter over the larger jobList
+        **/
+
+      if (currentList.lenth > 0) {
+      filterByState(stateSelected, currentList);
+      } else {
+      filterByState(stateSelected, jobList) // TODO make sure this is updated after indeed comes back
+      }
+
+     });
 
 
 
