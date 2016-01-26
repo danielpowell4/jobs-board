@@ -502,7 +502,7 @@ var $jobCount = $('#jobCount');
            nameList.push(nameFixed); // adds the grammar prepped names to the nameFixed Array
          };
 
-         console.log(nameList); // check console to see if it worked
+         //console.log(nameList); // check console to see if it worked
 
 
 
@@ -526,17 +526,29 @@ function cleanMaster() {
     };
 
   };
-  return false;
+  return jobList;
 }
 
+function postInital(){
+  cleanMaster();
+  initialBoard();
+  $jobCount.text(jobList.length);
+  return 'post ran'
+};
 
 
 // set a timeout for indeed api response
 
   var indeedRequestTimeout = setTimeout(function(){
-  $positionResults.text("failed to get wikipedia resources");
+  $positionResults.text("failed to get indeed resources");
   },
   8000);
+
+// set a pause for the getIndeed to run on setup
+
+  var initalPostPause = setTimeout(function(){
+    postInital();
+  }, 8000);
 
 // Prebuilt nameList
 //var companySearchList = ["Accent+on+Independence", "Alpine+Banks+of+Colorado+Inc.", "Alpine+Lumber+Company", "AmWest+Control+Inc.", "Aspen+Wine+Guild", "Boecore+Inc", "Bradsby+Group", "C.B.+&+Potts+Restaurants", "CH2M+Hill", "Charles+D.+Jones+Company", "Colorado+Recovery", "Community+Language+Cooperative", "Culture+Counts", "Davey+Tree+Expert+Company", "Denver+Wholesale+Florists", "Design+Works", "Drive+Train+Industries,+Inc.", "Elward+Systems+Corp.", "Excalibur+Associates,+Inc.", "Facility+Logic", "FirstBank+Holding+Company", "Fort+Collins+Food+Cooperative", "General+Air", "GH+Phipps", "GROUND+Engineering+Consultants+Inc.", "Hazen+Research,+Inc.", "Henzel+Phelps+Construction", "IMA+Financial+Group", "Intelligent+Software+Solutions", "Lamp+Rynearson+&+Associates", "Larson+Distributing+Company", "Leevers+Supermarkets+Inc.", "Left+Hand+Brewing", "Lerch+Bates+Consultants", "Les+Schwab+Tires", "LID+Landscapes", "Lundquist+Associates+Inc.", "Mayu+Meditation+Cooperative", "McStain+Enterprises+Inc", "Merrick+&+Co", "Metcalf+Archaeological+Consultants+Inc", "Monroe+&+Newell+Engineers+Inc.", "Muller+Engineering", "MWH+Global", "Namaste+Solar", "Neenan+Archistruction", "New+Belgium+Brewing", "North+Park+Transportation+Company", "Odell+Brewing", "Ohlson+Lavoie+Collaborative", "P&L+Printing", "Payzone+Directional+Services", "PCL+Construction", "Pester+Marketing", "Pipe+Valve+&+Fitting+Company", "Polar+Field+Services", "Power+Zone", "RAM+International+(includes+C.B.+&+Potts)", "Re/Max+of+Cherry+Creek", "Ready+Talk", "RESPEC+Consulting", "RNL+Design", "Rocky+Mountain+Employee+Ownership+Center", "Roth+Distributing", "S.A.+Miro+Inc.", "San+Juan+Construction", "Stailey+Insurance", "Stoneage+Inc.", "STORserver+Inc.", "The+Group+Real+Estate+Co", "Trinidad+Benham+Corporation", "Union+Taxi+Cooperative", "Venoco+Inc.", "Vision+Care+Specialists", "Wheatridge+Pharmacy", "Wright+Water+Engineers", "Yenter+Companies+Inc.", "Zick+Business+Advisors+Inc."];
@@ -551,35 +563,48 @@ function cleanMaster() {
 
   var positionCount = 0; // count up how many positions there are
 
-  for (var i=0; i < nameList.length; i++) {
+  function getIndeed()  {for (var i=0; i < nameList.length; i++) {
 
-      companyQueryName = nameList[i];
-      //console.log(companyQueryName);
-      var indeedURLTemplate = 'http://api.indeed.com/ads/apisearch?publisher=3980356173222029&as_and=&as_phr=&as_any=&as_not=&as_ttl=&as_cmp=' + companyQueryName + '&jt=all&st=&salary=&radius=25&l=&fromage=any&limit=30&sort=&psf=advsrch&q=company%3A%28' + companyQueryName + '%29&l=denver%2C+co&sort=&radius=&st=&jt=&start=&limit=100&fromage=&filter=&latlong=1&co=us&chnl=&userip=1.2.3.4&useragent=Mozilla/%2F4.0%28Firefox%29&v=2&format=json';
-      //console.log(indeedURLTemplate);
+        companyQueryName = nameList[i];
+        //console.log(companyQueryName);
+        var indeedURLTemplate = 'http://api.indeed.com/ads/apisearch?publisher=3980356173222029&as_and=&as_phr=&as_any=&as_not=&as_ttl=&as_cmp=' + companyQueryName + '&jt=all&st=&salary=&radius=25&l=&fromage=any&limit=30&sort=&psf=advsrch&q=company%3A%28' + companyQueryName + '%29&l=denver%2C+co&sort=&radius=&st=&jt=&start=&limit=100&fromage=&filter=&latlong=1&co=us&chnl=&userip=1.2.3.4&useragent=Mozilla/%2F4.0%28Firefox%29&v=2&format=json';
+        //console.log(indeedURLTemplate);
 
-      $.ajax({
-          url: indeedURLTemplate,
-          dataType: "jsonp",
-          jsonp: "callback",
-          success: function( response ) {
+        $.ajax({
+            url: indeedURLTemplate,
+            dataType: "jsonp",
+            jsonp: "callback",
+            success: function( response ) {
 
-              masterList.push(response); // masterList is an array of objects from indeed
+                masterList.push(response); // masterList is an array of objects from indeed
 
-              // ------- Add data to counter placeholders-------- //
-              $jobCount.text(masterList.length);
-              $companyCount.text(nameList.length);
+                // ------- Add data to counter placeholders-------- /
+                $companyCount.text(nameList.length);
 
-              clearTimeout(indeedRequestTimeout); // needs to be a realistic time for all of the results...
-          }
+                clearTimeout(indeedRequestTimeout); // needs to be a realistic time for all of the results...
+            }
 
-      });
-
+        });
 
       };
+    };
 
-// This is where I stopped on Monday... just need this to wait until all 144 ajax requests are complete
-      $.when(/* */).done(function(){
-        cleanMaster();
-        initialBoard();
-      });
+    getIndeed();
+
+    // need to explore .on
+//    $.when(getIndeed()).done(postInital(), console.log("i hate dan"));
+
+var FirebaseRef = new Firebase('https://blistering-fire-1147.firebaseio.com/'); // this work?
+
+FirebaseRef.set({
+  title: "Beacon is hitting up databases",
+  author: "Beacon",
+  location: {
+    city: "Beacon Alley",
+    state: "Canada",
+  }
+});
+
+FirebaseRef.child("title").on("value", function(e) {
+  console.log(e.val());
+});
