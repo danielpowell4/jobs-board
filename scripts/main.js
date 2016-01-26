@@ -304,6 +304,7 @@ var $jobCount = $('#jobCount');
 
   function clearBoard() {
     $positionResults.text("");
+      $jobCount.text(jobList.length);
   };
 
   function postCurrentList() {
@@ -366,6 +367,9 @@ var $jobCount = $('#jobCount');
         for(var i=0; i<$searchTokenArray.length; i++){
             ensureAllMatch($searchTokenArray[i], currentList); // clears out any 'maybes'
         };
+        for(var i=0; i<$searchTokenArray.length; i++){
+            ensureAllMatch($searchTokenArray[i], currentList); // pass twice as popped throws it off TODO: refactor so it doesn't need this
+        };
 
       // clear position positings
       clearBoard();
@@ -374,6 +378,9 @@ var $jobCount = $('#jobCount');
       // post currentList to the board
       postCurrentList();
       checkState();
+
+      // update the counters
+        $jobCount.text(currentList.length);
 
   return false;
   };
@@ -434,6 +441,7 @@ var $jobCount = $('#jobCount');
       if (stateSelected.length > 0){
         filterByState(stateSelected, currentList);
       }
+
   }
 
 
@@ -465,6 +473,9 @@ var $jobCount = $('#jobCount');
         clearBoard();
         postCurrentList();
 
+        //update counter
+        $jobCount.text(currentList.length);
+
 
 
     };
@@ -486,6 +497,7 @@ var $jobCount = $('#jobCount');
 
       // go over and make sure search terms are accounted for
       filterData();
+
 
       });
 
