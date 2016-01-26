@@ -7,7 +7,9 @@
 // BASIC JOB LISTS
 var masterList = [];
 var currentList = [];
-var jobList = [
+var jobList = [];
+
+/*
 
                 {
                     "jobtitle" : "Steve",
@@ -284,7 +286,7 @@ var jobList = [
 }
 
     ]; // job list is an array of objects from indeed
-
+*/
 
 //DOM ELEMENTS FOR COUNTER
 var $companyCount = $('#companyCount');
@@ -334,7 +336,7 @@ var $jobCount = $('#jobCount');
       postCurrentList();
     };
 
-    initialBoard();
+
 
 /**-----------------------------------------------------------------------------
   *
@@ -487,6 +489,21 @@ var $jobCount = $('#jobCount');
 
       });
 
+      /** -----------------------------------------------------------------------------------------------
+        *                    Generate Names List from companyList.js Names
+        * ----------------------------------------------------------------------------------------------- */
+
+         var nameList = [];
+
+         // Requires a companyList variable that is a JSON containing a Name attribute
+
+         for (var i = 0; i<companyList.length; i++) {
+           var nameFixed = companyList[i].Name.replace(/ /g, '+'); // replaces space with a + in the name
+           nameList.push(nameFixed); // adds the grammar prepped names to the nameFixed Array
+         };
+
+         console.log(nameList); // check console to see if it worked
+
 
 
 
@@ -494,8 +511,25 @@ var $jobCount = $('#jobCount');
   *                                Go to indeed and bring back all the jobs
   * ------------------------------------------------------------------------------------------------------ */
 
-  /** ---- Commented out as filter is being built better to not annoy indeed
-    *          End Comment at the console logging the number of companies queried
+  /**
+    *
+    * Clean up the masterList and send the actual jobs to the jobList
+    *
+    */
+
+function cleanMaster() {
+  for (var i=0; i < masterList.length; i++) {
+    if (masterList[i].results.length >= 1) {
+      for (var j=0; j < masterList[i].results.length; j++) {
+        jobList.push(masterList[i].results[j]);
+      }
+    };
+
+  };
+  return false;
+}
+
+
 
 // set a timeout for indeed api response
 
@@ -504,15 +538,11 @@ var $jobCount = $('#jobCount');
   },
   8000);
 
-
-
 // Prebuilt nameList
-var companySearchList = ["Accent+on+Independence", "Alpine+Banks+of+Colorado+Inc.", "Alpine+Lumber+Company", "AmWest+Control+Inc.", "Aspen+Wine+Guild", "Boecore+Inc", "Bradsby+Group", "C.B.+&+Potts+Restaurants", "CH2M+Hill", "Charles+D.+Jones+Company", "Colorado+Recovery", "Community+Language+Cooperative", "Culture+Counts", "Davey+Tree+Expert+Company", "Denver+Wholesale+Florists", "Design+Works", "Drive+Train+Industries,+Inc.", "Elward+Systems+Corp.", "Excalibur+Associates,+Inc.", "Facility+Logic", "FirstBank+Holding+Company", "Fort+Collins+Food+Cooperative", "General+Air", "GH+Phipps", "GROUND+Engineering+Consultants+Inc.", "Hazen+Research,+Inc.", "Henzel+Phelps+Construction", "IMA+Financial+Group", "Intelligent+Software+Solutions", "Lamp+Rynearson+&+Associates", "Larson+Distributing+Company", "Leevers+Supermarkets+Inc.", "Left+Hand+Brewing", "Lerch+Bates+Consultants", "Les+Schwab+Tires", "LID+Landscapes", "Lundquist+Associates+Inc.", "Mayu+Meditation+Cooperative", "McStain+Enterprises+Inc", "Merrick+&+Co", "Metcalf+Archaeological+Consultants+Inc", "Monroe+&+Newell+Engineers+Inc.", "Muller+Engineering", "MWH+Global", "Namaste+Solar", "Neenan+Archistruction", "New+Belgium+Brewing", "North+Park+Transportation+Company", "Odell+Brewing", "Ohlson+Lavoie+Collaborative", "P&L+Printing", "Payzone+Directional+Services", "PCL+Construction", "Pester+Marketing", "Pipe+Valve+&+Fitting+Company", "Polar+Field+Services", "Power+Zone", "RAM+International+(includes+C.B.+&+Potts)", "Re/Max+of+Cherry+Creek", "Ready+Talk", "RESPEC+Consulting", "RNL+Design", "Rocky+Mountain+Employee+Ownership+Center", "Roth+Distributing", "S.A.+Miro+Inc.", "San+Juan+Construction", "Stailey+Insurance", "Stoneage+Inc.", "STORserver+Inc.", "The+Group+Real+Estate+Co", "Trinidad+Benham+Corporation", "Union+Taxi+Cooperative", "Venoco+Inc.", "Vision+Care+Specialists", "Wheatridge+Pharmacy", "Wright+Water+Engineers", "Yenter+Companies+Inc.", "Zick+Business+Advisors+Inc."];
+//var companySearchList = ["Accent+on+Independence", "Alpine+Banks+of+Colorado+Inc.", "Alpine+Lumber+Company", "AmWest+Control+Inc.", "Aspen+Wine+Guild", "Boecore+Inc", "Bradsby+Group", "C.B.+&+Potts+Restaurants", "CH2M+Hill", "Charles+D.+Jones+Company", "Colorado+Recovery", "Community+Language+Cooperative", "Culture+Counts", "Davey+Tree+Expert+Company", "Denver+Wholesale+Florists", "Design+Works", "Drive+Train+Industries,+Inc.", "Elward+Systems+Corp.", "Excalibur+Associates,+Inc.", "Facility+Logic", "FirstBank+Holding+Company", "Fort+Collins+Food+Cooperative", "General+Air", "GH+Phipps", "GROUND+Engineering+Consultants+Inc.", "Hazen+Research,+Inc.", "Henzel+Phelps+Construction", "IMA+Financial+Group", "Intelligent+Software+Solutions", "Lamp+Rynearson+&+Associates", "Larson+Distributing+Company", "Leevers+Supermarkets+Inc.", "Left+Hand+Brewing", "Lerch+Bates+Consultants", "Les+Schwab+Tires", "LID+Landscapes", "Lundquist+Associates+Inc.", "Mayu+Meditation+Cooperative", "McStain+Enterprises+Inc", "Merrick+&+Co", "Metcalf+Archaeological+Consultants+Inc", "Monroe+&+Newell+Engineers+Inc.", "Muller+Engineering", "MWH+Global", "Namaste+Solar", "Neenan+Archistruction", "New+Belgium+Brewing", "North+Park+Transportation+Company", "Odell+Brewing", "Ohlson+Lavoie+Collaborative", "P&L+Printing", "Payzone+Directional+Services", "PCL+Construction", "Pester+Marketing", "Pipe+Valve+&+Fitting+Company", "Polar+Field+Services", "Power+Zone", "RAM+International+(includes+C.B.+&+Potts)", "Re/Max+of+Cherry+Creek", "Ready+Talk", "RESPEC+Consulting", "RNL+Design", "Rocky+Mountain+Employee+Ownership+Center", "Roth+Distributing", "S.A.+Miro+Inc.", "San+Juan+Construction", "Stailey+Insurance", "Stoneage+Inc.", "STORserver+Inc.", "The+Group+Real+Estate+Co", "Trinidad+Benham+Corporation", "Union+Taxi+Cooperative", "Venoco+Inc.", "Vision+Care+Specialists", "Wheatridge+Pharmacy", "Wright+Water+Engineers", "Yenter+Companies+Inc.", "Zick+Business+Advisors+Inc."];
 
-
-// functioning API request to indeed... could be improved upon
-var indeedURL = 'http://api.indeed.com/ads/apisearch?publisher=3980356173222029&as_and=&as_phr=&as_any=&as_not=&as_ttl=&as_cmp=New+Belgium&jt=all&st=&salary=&radius=25&l=&fromage=any&limit=30&sort=&psf=advsrch&q=company%3A%28New+Belgium%29&l=denver%2C+co&sort=&radius=&st=&jt=&start=&limit=100&fromage=&filter=&latlong=1&co=us&chnl=&userip=1.2.3.4&useragent=Mozilla/%2F4.0%28Firefox%29&v=2&format=json'
-
+  // functioning API request to indeed... could be improved upon
+  var indeedURL = 'http://api.indeed.com/ads/apisearch?publisher=3980356173222029&as_and=&as_phr=&as_any=&as_not=&as_ttl=&as_cmp=New+Belgium&jt=all&st=&salary=&radius=25&l=&fromage=any&limit=30&sort=&psf=advsrch&q=company%3A%28New+Belgium%29&l=denver%2C+co&sort=&radius=&st=&jt=&start=&limit=100&fromage=&filter=&latlong=1&co=us&chnl=&userip=1.2.3.4&useragent=Mozilla/%2F4.0%28Firefox%29&v=2&format=json'
 
   // loop through list of prefab company names, send ajax requests to indeed and then append the results to the positionResults container
 
@@ -520,11 +550,10 @@ var indeedURL = 'http://api.indeed.com/ads/apisearch?publisher=3980356173222029&
   //var indeedURLTemplate = 'http://api.indeed.com/ads/apisearch?publisher=3980356173222029&as_and=&as_phr=&as_any=&as_not=&as_ttl=&as_cmp=' + companyQueryName + '&jt=all&st=&salary=&radius=25&l=&fromage=any&limit=30&sort=&psf=advsrch&q=company%3A%28' + companyQueryName + '%29&l=denver%2C+co&sort=&radius=&st=&jt=&start=&limit=100&fromage=&filter=&latlong=1&co=us&chnl=&userip=1.2.3.4&useragent=Mozilla/%2F4.0%28Firefox%29&v=2&format=json';
 
   var positionCount = 0; // count up how many positions there are
-  var masterList = [];
 
-  for (var i=0; i < companySearchList.length; i++) {
+  for (var i=0; i < nameList.length; i++) {
 
-      companyQueryName = companySearchList[i];
+      companyQueryName = nameList[i];
       //console.log(companyQueryName);
       var indeedURLTemplate = 'http://api.indeed.com/ads/apisearch?publisher=3980356173222029&as_and=&as_phr=&as_any=&as_not=&as_ttl=&as_cmp=' + companyQueryName + '&jt=all&st=&salary=&radius=25&l=&fromage=any&limit=30&sort=&psf=advsrch&q=company%3A%28' + companyQueryName + '%29&l=denver%2C+co&sort=&radius=&st=&jt=&start=&limit=100&fromage=&filter=&latlong=1&co=us&chnl=&userip=1.2.3.4&useragent=Mozilla/%2F4.0%28Firefox%29&v=2&format=json';
       //console.log(indeedURLTemplate);
@@ -535,61 +564,22 @@ var indeedURL = 'http://api.indeed.com/ads/apisearch?publisher=3980356173222029&
           jsonp: "callback",
           success: function( response ) {
 
-            var jobList = response.results; // job list is an array of objects from indeed
-
-
-      /* --------------------------------------------------------------------
-             loop through the results, push them to masterList and place them on the job board
-         -------------------------------------------------------------------- * / <------------------ TODO GET RID OF THIS SPACE
-
-            var post, postTitle, postCompany, postSnippet, postLocation, postDate, postURL;
-
-            for (var i = 0; i<jobList.length; i++){
-              post = jobList[i];
-              postTitle = '<h2>' + post.jobtitle + '</h2>';
-              postCompany = '<h4>' + post.company + '</h4>';
-              postSnippet = '<p>' + post.snippet + '</p>';
-              postLocation = '<p>' + post.formattedLocationFull + '</p>';
-              postDate = '<p>' + post.date + '</p>';
-              postURL = '<a href="' + post.url + '"> View Posting Here </a>';
-
-              masterList.push(post); // add to masterList
-
-              $positionResults.append('<div class="positing-item">' + postTitle + postCompany + postSnippet + postLocation + postDate + postURL + '</div>');
-              }
+              masterList.push(response); // masterList is an array of objects from indeed
 
               // ------- Add data to counter placeholders-------- //
               $jobCount.text(masterList.length);
-              $companyCount.text(companySearchList.length);
+              $companyCount.text(nameList.length);
 
               clearTimeout(indeedRequestTimeout); // needs to be a realistic time for all of the results...
           }
+
       });
 
 
-  };
+      };
 
-
-
-  //console.log('Numver of Companies Queried: ' + companySearchList.length);
-
-
------------------------------------------------------------------------------------------------------- TODO Dont forget to get rid of the space from above */
-
-
-
-/* -----------------------------------------------------------------------------------------------
-  * Small Names List Generator from a JSON
-   ----------------------------------------------------------------------------------------------- */
-/*
-  * var nameList = [];
-  *
-  * // Requires a companyList variable that is a JSON containing a Name attribute
-  *
-  * for (var i = 0; i<companyList.length; i++) {
-  *   var nameFixed = companyList[i].Name.replace(/ /g, '+'); // replaces space with a + in the name
-  *   nameList.push(nameFixed); // adds the grammar prepped names to the nameFixed Array
-  * };
-  *
-  * console.log(nameList); // check console to see if it worked
-*/
+// This is where I stopped on Monday... just need this to wait until all 144 ajax requests are complete
+      $.when(/* */).done(function(){
+        cleanMaster();
+        initialBoard();
+      });

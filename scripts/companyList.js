@@ -934,5 +934,195 @@ var companyList = [
     "Contact Email": "info@zickcpa.com",
     "Contact Phone": "(303) 758-9167",
     "Notes": 0
-  }
+  },
+
+  //-------------------------------------------------------- START BCORPS -----------
+
+  {
+  "Name": "Berger & Fohr"
+}, {
+  "Name": "The Tea Spot"
+}, {
+  "Name": "Namaste Solar"
+}, {
+  "Name": "New Belgium Brewing"
+}, {
+  "Name": "ThinkImpact"
+}, {
+  "Name": "Application Experts"
+}, {
+  "Name": "Bhakti Chai"
+}, {
+  "Name": "Door To Door Organics"
+}, {
+  "Name": "Education Funding Partners"
+}, {
+  "Name": "First Affirmative Financial Network"
+}, {
+  "Name": "Icebox Knitting"
+}, {
+  "Name": "Inspire Commerce"
+},
+{
+  "Name": "Mobile Accord"
+},
+{
+  "Name": "PACT Apparel"
+},
+{
+  "Name": "The Paradigm Project"
+},
+{
+  "Name": "Renewable Choice Energy"
+},
+{
+  "Name": "The Restorative Leadership Institue"
+},
+{
+  "Name": "Urban Green Development"
+},
+{
+  "Name": "World Leadership School"
+},
+{
+  "Name": "Vista Caballo"
+},
+{
+  "Name": "Simple Energy"
+},
+{
+  "Name": "Coda Coffee"
+},
+{
+  "Name": "Yummari"
+},
+{
+  "Name": "Best Organics"
+},
+{
+  "Name": "Cultivation Center"
+},
+{
+  "Name": "Impact Hub Boulder"
+},
+{
+  "Name": "Ecologic Designs Inc"
+},
+{
+  "Name": "Green Guru"
+},
+{
+  "Name": "Teatulia Organic Teas"
+},
+{
+  "Name": "Blue Bot Advocates"
+},
+{
+  "Name": "Moye White"
+},
+{
+  "Name": "Walden Hyde"
+},
+{
+  "Name": "Envirofit International"
+},
+{
+  "Name": "Gary Community Investments"
+},
+{
+  "Name": "YR&G"
+},
+{
+  "Name": "1908 Brands"
+},
+{
+  "Name": "Colorado Capital Management"
+},
+{
+  "Name": "Vision Executive Coaching"
+},
+{
+  "Name": "Jibu"
+},
+{
+  "Name": "Newton Running"
+},
+{
+  "Name": "Olomomo Nut Company"
+},
+{
+  "Name": "aWhere"
+},
+{
+  "Name": "Waste Farmers"
+},
+{
+  "Name": "Wallaro Hat Company"
+},
+{
+  "Name": "Super Humane"
+},
+{
+  "Name": "Conscious Coffee"
+},
+{
+  "Name": "CauseLabs"
+},
+{
+  "Name": "Madhava Sweeteners"
+},
+{
+  "Name": "Purely Elizabeth"
+},
+{
+  "Name": "dojo4"
+},
+{
+  "Name": "Conservation Impact"
+},
+{
+  "Name": "NAVA Real Estate Development"
+},
+{
+  "Name": "Jason Wiener"
+},
+{
+  "Name": "Green Alpha Advisors"
+},
+{
+  "Name": "Fishpond"
+},
+{
+  "Name": "Organic India"
+},
+{
+  "Name": "Motherlove Herbal Company"
+},
+{
+  "Name": "Goddess Garden"
+},
+{
+  "Name": "Unreasonable Group"
+},
+{
+  "Name": "RNL Design"
+},
+{
+  "Name": "GreenSpot Global"
+},
+{
+  "Name": "Conscious Company Magazine"
+},
+{
+  "Name": "Greenline Community Ventures"
+},
+{
+  "Name": "Amicus Solar Cooperative"
+},
+{
+  "Name": "iSupportU"
+},
+{
+  "Name": "Ripple Strategies LLC"
+}
 ];
