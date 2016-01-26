@@ -316,7 +316,7 @@ var $jobCount = $('#jobCount');
         postSnippet = '<p>' + post.snippet + '</p>';
         postLocation = '<p>' + post.formattedLocationFull + '</p>';
         postDate = '<p>' + post.date + '</p>';
-        postURL = '<a href="' + post.url + '"> View Posting Here </a>';
+        postURL = '<a target="_blank" href="' + post.url + '"> View Posting Here </a>';
         $positionResults.append('<div class="posting-item">' + postTitle + postCompany + postSnippet + postLocation + postDate + postURL + '</div>');
         }
       }  else {
