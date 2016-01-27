@@ -113,10 +113,11 @@ btn {
   justify-content: space-around;
 }
 
-.posting-item{
-  width: 30%;
-  max-width: 250px;
-  padding: 1em;
+.posting-item {
+    width: 30%;
+    max-width: 260px;
+    padding: 1em;
+    min-width: 200px;
 }
 
 .keep-trying-posting-item {
