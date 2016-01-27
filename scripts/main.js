@@ -620,3 +620,7 @@ FirebaseRef.set({
 FirebaseRef.child("title").on("value", function(e) {
   console.log(e.val());
 });
+
+$("#view-all-btn").click(function(){
+  initialBoard();
+});
