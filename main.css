@@ -28,8 +28,13 @@ h1 {
     height: auto;
     min-height: 520px;
     background-color: #eee;
+    background-image: url("/img/medium-people.jpg");
     margin: 0;
     border-bottom: 1px solid black;
+    -o-background-size:100% auto;
+    -webkit-background-size:100% auto;
+    -moz-background-size:100% auto;
+    background-size:100% auto;
 }
 
 #hero-text-wrapper {
