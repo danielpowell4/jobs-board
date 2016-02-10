@@ -28,7 +28,7 @@ h1 {
     height: auto;
     min-height: 520px;
     background-color: #eee;
-    background-image: url("/jobs-board/img/cropped-people.jpg");
+    background-image: url("/img/cropped-people.jpg");
     margin: 0;
     border-bottom: 1px solid black;
     -o-background-size:100% auto;
