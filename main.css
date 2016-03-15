@@ -22,6 +22,20 @@ h1 {
   background-color: #fff;
 }
 
+nav {
+    position: fixed;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    z-index: 999;
+}
+#logo img {
+    position: static;
+    padding: 6px 20px;
+    height: 60px;
+    width: auto;
+}
+
 #hero {
     text-align: center;
     width: 100%;
