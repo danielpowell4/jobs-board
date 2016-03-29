@@ -1,7 +1,26 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
+
 <!-- Generator: Adobe Illustrator 19.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 356 100" style="enable-background:new 0 0 356 100;" xml:space="preserve">
+
+	 <style>
+
+	 	g#wheel{
+	 	  -webkit-animation:spin 4s linear infinite;
+	 	  -moz-animation:spin 4s linear infinite;
+	 	  animation:spin 4s linear infinite;
+	 	  transform-origin: 50% 50%;
+	 	  -webkit-transform-origin: 50% 50%;
+	 	  -moz-transform-origin: 50% 50%;
+	 	}
+
+		@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+		@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+		@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+
+	 </style>
+
 <g id="m_x5F_ov">
 	<g>
 		<g>
