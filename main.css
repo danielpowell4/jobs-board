@@ -29,11 +29,11 @@ nav {
     height: auto;
     z-index: 999;
 }
-#logo img {
+
+.logo-head {
+    max-width: 242px;
     position: static;
-    padding: 6px 20px;
-    height: 60px;
-    width: auto;
+    padding: 6px 0;
 }
 
 #hero {
@@ -42,7 +42,6 @@ nav {
     height: auto;
     min-height: 520px;
     background-color: #eee;
-    background-image: url("/img/cropped-people.jpg");
     margin: 0;
     border-bottom: 1px solid black;
     -o-background-size:100% auto;
@@ -74,6 +73,21 @@ btn {
     text-align: center;
     border-radius: 3px;
 }
+
+g#wheel{
+  -webkit-animation:spin 4s linear infinite;
+  -moz-animation:spin 4s linear infinite;
+  animation:spin 4s linear infinite;
+  transform-origin: 50% 50%;
+  -webkit-transform-origin: 50% 50%;
+  -moz-transform-origin: 50% 50%;
+}
+
+
+
+@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
 
 @media screen and (max-width: 680px){
   #hero-text-wrapper {
