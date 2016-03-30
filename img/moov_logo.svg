@@ -7,9 +7,9 @@
 	 <style>
 
 	 	g#wheel{
-	 	  -webkit-animation:spin 4s linear infinite;
-	 	  -moz-animation:spin 4s linear infinite;
-	 	  animation:spin 4s linear infinite;
+	 	  -webkit-animation:spin 7s linear infinite;
+	 	  -moz-animation:spin 7s linear infinite;
+	 	  animation:spin 7s linear infinite;
 	 	  transform-origin: 50% 50%;
 	 	  -webkit-transform-origin: 50% 50%;
 	 	  -moz-transform-origin: 50% 50%;
